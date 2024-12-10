@@ -8,10 +8,6 @@ main {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
-.container {
-    display: flex;
-}
-
 .title-container {
     display: flex;
     flex-direction: column;
