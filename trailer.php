@@ -17,7 +17,17 @@
             </div>
 
             <img class="image" src="./images/poster.jpg" alt="">
-            <p></p>
+        </section>
+
+        <section class="story-container">
+            <h3>Storyline</h3>
+            <p>
+                Bluey follows the adventures of a lovable and inexhaustible
+                six-year-old Blue Heeler puppy who lives with her dad, mum and
+                four-year-old little sister, Bingo. In every episode, Bluey
+                uses her limitless Blue heeler energy to play elaborate games
+                that unfold in unpredictable and hilarious ways.
+            </p>
         </section>
     </main>
 </body>

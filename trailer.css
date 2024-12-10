@@ -4,9 +4,8 @@
     padding: 0;
 }
 
-.title-container {
+main {
     background-color: rgba(0, 0, 0, 0.7);
-    padding: 50px;
 }
 
 .title {
@@ -26,4 +25,19 @@
 
 .image {
     border-radius: 10px;
+}
+
+.story-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.story-container h3 {
+    font-size: 2em;
+}
+
+.story-container p {
+    width: 56vw;
 }
