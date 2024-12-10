@@ -8,15 +8,30 @@
 </head>
 <body>
     <main>
-        <section class="title-container">
-            <p class="title">Bluey</p>
+        <section class="container">
+            <div class="title-container">
+                <p class="title">Bluey</p>
 
-            <div class="title-info">
-                <p>TV series</p>
-                <p>2018</p>
+                <div class="title-info">
+                    <p>TV series</p>
+                    <p>2018</p>
+                </div>
+            
+                <div class="image-container">
+                    <img class="image" src="./images/poster.jpg" alt="">
+                    <button class="watchlist-button">+</button>
+                </div>
             </div>
 
-            <img class="image" src="./images/poster.jpg" alt="">
+            <div class="box-office-container">
+                <h2>Box office</h2>
+                <div class="box-grid">
+                    <h3>Budget</h3>
+                    <h3>Gross US & Canada</h3>
+                    <h3>Opening weekend US & Canada</h3>
+                    <h3>Gross worldwide</h3>
+                </div>
+            </div>
         </section>
 
         <section class="story-container">
