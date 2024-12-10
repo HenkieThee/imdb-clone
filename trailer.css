@@ -1,3 +1,29 @@
-body {
-    background-color: orange;
+* {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.title-container {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 50px;
+}
+
+.title {
+    color: white;
+    font-size: 3rem;
+}
+
+.title-info {
+    display: flex;
+    gap: 10px;
+}
+
+.title-info p {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 8px;
+}
+
+.image {
+    border-radius: 10px;
 }

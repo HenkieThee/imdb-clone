@@ -7,6 +7,18 @@
     <link rel="stylesheet" href="trailer.css">
 </head>
 <body>
-    <h1>Hello world</h1>
+    <main>
+        <section class="title-container">
+            <p class="title">Bluey</p>
+
+            <div class="title-info">
+                <p>TV series</p>
+                <p>2018</p>
+            </div>
+
+            <img class="image" src="./images/poster.jpg" alt="">
+            <p></p>
+        </section>
+    </main>
 </body>
 </html>
