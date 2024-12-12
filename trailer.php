@@ -8,10 +8,12 @@
 </head>
 <body>
     <main class="bg-white">
+        <button onclick="searchMovie()">Testing</button>
+
         <div class="flex flex-col">
         <section class="flex items-center justify-center gap-3">
             <div>
-                <p class="text-4xl">Bluey</p>
+                <p class="text-4xl"></p>
 
                 <div class="flex gap-4">
                     <p>TV series</p>
@@ -65,5 +67,6 @@
         </section>
         </div>
     </main>
+    <script src="trailer.js"></script>
 </body>
 </html>
