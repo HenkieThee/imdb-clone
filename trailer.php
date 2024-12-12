@@ -8,11 +8,12 @@
 </head>
 <body>
     <main class="bg-white">
-        <section class="flex items-center justify-between ml-2">
+        <div class="flex flex-col">
+        <section class="flex items-center justify-center gap-3">
             <div>
                 <p class="text-4xl">Bluey</p>
 
-                <div class="flex gap-4 mb-4">
+                <div class="flex gap-4">
                     <p>TV series</p>
                     <p>2018</p>
                 </div>
@@ -20,6 +21,12 @@
                 <div class="relative">
                     <img class="rounded rounded-tl-none" src="./images/poster.jpg" alt="">
                     <button class="absolute bg-black text-white text-xl top-0 p-2 opacity-50">+</button>
+                </div>
+            </div>
+
+            <div>
+                <div class="flex items-center">
+                    <iframe class="max-w-full" width="600" height="280" src="https://www.youtube.com/embed/ZrR9ML0sxEE" title="" frameBorder="0"   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"  allowFullScreen></iframe>
                 </div>
             </div>
 
@@ -56,6 +63,7 @@
                 that unfold in unpredictable and hilarious ways.
             </p>
         </section>
+        </div>
     </main>
 </body>
 </html>
