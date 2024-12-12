@@ -8,31 +8,27 @@
 </head>
 <body>
     <main class="bg-white">
-        <button onclick="searchMovie()">Testing</button>
-
-        <div class="flex flex-col">
-        <section class="flex items-center justify-center gap-3">
+        <div class="flex flex-col items-center justify-center">
+        <section class="">
             <div>
-                <p class="text-4xl"></p>
+                <p id="title" class="text-4xl"></p>
 
                 <div class="flex gap-4">
-                    <p>TV series</p>
-                    <p>2018</p>
-                </div>
-            
-                <div class="relative">
-                    <img class="rounded rounded-tl-none" src="./images/poster.jpg" alt="">
-                    <button class="absolute bg-black text-white text-xl top-0 p-2 opacity-50">+</button>
+                    <p id="type"></p>
+                    <p id="year"></p>
                 </div>
             </div>
 
-            <div>
+            <div class="flex">
+                <div class="relative">
+                    <img id="poster" class="rounded-xl rounded-tl-none h-auto w-52">
+                    <button class="absolute bg-black text-white text-xl top-0 p-2 opacity-50">+</button>
+                </div>
                 <div class="flex items-center">
                     <iframe class="max-w-full" width="600" height="280" src="https://www.youtube.com/embed/ZrR9ML0sxEE" title="" frameBorder="0"   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"  allowFullScreen></iframe>
                 </div>
-            </div>
 
-            <div class="box-office-container">
+                <div>
                 <h2 class="font-bold text-3xl">Box office</h2>
                 <div class="gap-4 grid grid-cols-2">
                     <div>
@@ -53,17 +49,13 @@
                     </div>
                 </div>
             </div>
+            </div>
         </section>
-
-        <section class="flex flex-col items-center">
-            <h3 class="font-bold mb-6 text-3xl">Storyline</h3>
-            <p class="w-3/5">
-                Bluey follows the adventures of a lovable and inexhaustible
-                six-year-old Blue Heeler puppy who lives with her dad, mum and
-                four-year-old little sister, Bingo. In every episode, Bluey
-                uses her limitless Blue heeler energy to play elaborate games
-                that unfold in unpredictable and hilarious ways.
-            </p>
+        
+        <section>
+            <div>
+                <p id="plot" class="w-5/6"></p>
+            </div>
         </section>
         </div>
     </main>
