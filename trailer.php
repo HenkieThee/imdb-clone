@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <main id="container"></main>
+    <main id="container" class="bg-stone-900 text-white"></main>
     <script src="trailer.js"></script>
 </body>
 </html>

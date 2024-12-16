@@ -11,16 +11,17 @@ function searchMovie() {
     .then(data => {
         if (data.Response === "True") {
             const text = `
-            <section class="bg-stone-900 flex flex-col text-white">
-                <div class="flex items-center justify-around">
-                    <div class="">
+            <section class="flex flex-col items-center mx-40">
+                <div class="flex items-center">
+                    <div>
                         <p id="title" class="text-4xl">${data.Title}</p>
-                        <div class="flex gap-3 text-zinc-400">
+                        <div class="flex">
                             <p>${data.Year}</p>
                             <p>${data.Rated}</p>
                             <p>${data.Runtime}</p>
                         </div>
                     </div>
+                    
                     <div>
                         <p>IMDb RATING</p>
                         <p class="cursor-pointer text-gray-300 text-lg">
@@ -29,10 +30,30 @@ function searchMovie() {
                     </div>
                 </div>
             
-                <div class="flex justify-center">
+                <div class="">
                     <div class="relative">
                         <img src="${data.Poster}" id="poster" class="rounded-xl rounded-tl-none w-56">
                         <button class="absolute bg-black text-white text-5xl top-0 opacity-50">+</button>
+                    </div>
+                </div>
+                
+                <div class="flex gap-4 items-center">
+                    <div>
+                    <p class="p-4 w-4/6">${data.Plot}</p>
+                    <hr class="text-gray-300 w-max">
+                    <p class="font-bold p-4">Director <span class="font-normal text-blue-400">${data.Director}</span></p>
+                    <hr class="text-gray-300">
+                    <p class="font-bold p-4">Writers <span class="font-normal text-blue-400">${data.Writer}</span></p>
+                    <hr class="text-gray-300">
+                    <p class="font-bold p-4">Stars <span class="font-normal text-blue-400">${data.Actors}</span></p>
+                    </div>
+
+                    <div>
+                        <button>Add to Watchlist</button>
+                        <div>
+                            <p>${data.Metascore}</p>
+                            <p>Metascore</p>
+                        </div>
                     </div>
                 </div>
             </section>
