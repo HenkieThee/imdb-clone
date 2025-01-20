@@ -2,8 +2,8 @@ const apiKey = "74595494";
 const container = document.querySelector("#container");
 
 function searchMovie() {
-    const title = "Bluey";
-    const url = `http://www.omdbapi.com/?t=${title}&apikey=${apiKey}`;
+    const title = "Red One";
+    const url = `http://www.omdbapi.com/?t="Red-One"&apikey=74595494`;
 
     fetch(url)
     .then(response => response.json())
@@ -23,8 +23,6 @@ function searchMovie() {
                             <p>${data.Runtime}</p>
                         </div>
                     </div>
-
-                    TODO: Add the box-office and metascore to this container
 
                     <div class="flex flex-col font-bold text-gray-400">
                         <p class="tracking-wider">IMDb RATING</p>
@@ -79,16 +77,26 @@ function searchMovie() {
                         </div>
                     </div>
 
-                    TODO: Make the styling for the add to watchlist button
+                    <div class="flex flex-col gap-2">
+                        <div>
+                            <button class="bg-yellow-500 flex flex-nowrap font-semibold rounded text-black text-sm p-1">Add to Watchlist</button>
+                        </div>
 
-                    <div>
-                        <button>Add to Watchlist</button>
-                        <span>
-                        Metascore:
-                        <p class="${data.Metascore <= 50 ? 'bg-red-400' : 'bg-green-400'}">
-                         ${data.Metascore}
-                        </p>
-                        </span>
+                        <div>
+                            <span class="flex gap-2">
+                            Metascore:
+                            <p class="${data.Metascore <= 50 ? 'bg-red-400' : 'bg-green-400'} px-1 rounded">
+                            ${data.Metascore}
+                            </p>
+                            </span>
+                        </div>
+
+                        <div>
+                            <span class="text-center">
+                                <p>Box office:</p>
+                                <p>${data.BoxOffice}</p>
+                            </span>
+                        </div>
                     </div>
                 </div>
             
