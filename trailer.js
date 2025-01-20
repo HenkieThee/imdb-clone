@@ -2,8 +2,8 @@ const apiKey = "74595494";
 const container = document.querySelector("#container");
 
 function searchMovie() {
-    const title = "Red One";
-    const url = `http://www.omdbapi.com/?t="Red-One"&apikey=74595494`;
+    const title = "Bluey";
+    const url = `http://www.omdbapi.com/?t=${title}&apikey=${apiKey}`;
 
     fetch(url)
     .then(response => response.json())
@@ -11,7 +11,6 @@ function searchMovie() {
         if (data.Response === "True") {
             let votes = data.imdbVotes;
             const numberedVotes = parseInt(votes.replace(/,/g, ""));
-            console.log(numberedVotes);
 
             const text = `
             <section class="py-20 mx-auto w-4/6">
@@ -24,7 +23,9 @@ function searchMovie() {
                             <p>${data.Runtime}</p>
                         </div>
                     </div>
-                
+
+                    TODO: Add the box-office and metascore to this container
+
                     <div class="flex flex-col font-bold text-gray-400">
                         <p class="tracking-wider">IMDb RATING</p>
                             <div class="flex items-start">
@@ -56,7 +57,7 @@ function searchMovie() {
                                 </svg>
                                 <div>
                                     <span class="font-bold text-xl text-white">${data.imdbRating}</span>/10
-                                    <p class="text-xs">${numberedVotes >= 1000 ? `${votes.substr(0, 4)}k` : data.imdbVotes}</p>
+                                    <p class="text-xs">${numberedVotes >= 1000 ? `${votes.substr(0, 3)}k` : data.imdbVotes}</p>
                                 </div>
                             </div>
                     </div>
@@ -77,15 +78,23 @@ function searchMovie() {
                             <p class="font-bold">Stars <span class="font-normal text-blue-400">${data.Actors}</span></p>
                         </div>
                     </div>
+
+                    TODO: Make the styling for the add to watchlist button
+
                     <div>
                         <button>Add to Watchlist</button>
-                        <p>${data.Metascore}</p>
-                        <p>Metascore</p>
+                        <span>
+                        Metascore:
+                        <p class="${data.Metascore <= 50 ? 'bg-red-400' : 'bg-green-400'}">
+                         ${data.Metascore}
+                        </p>
+                        </span>
                     </div>
                 </div>
             
             </section>
-                <p class="">${data.Plot}</p>
+                <p class="text-center">${data.Plot}</p>
+                TODO: Make a relative films list and have a recently viewed list
             `
 
             container.innerHTML = text;
