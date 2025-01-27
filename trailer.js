@@ -1,14 +1,16 @@
-const apiKey = "74595494";
+const omdbApiKey = "74595494";
+const tmdbApiKey = "ad44c9ef1393dce98f4d2f0cfc319492";
 const container = document.querySelector("#container");
 
 function searchMovie() {
     const title = "Red One";
-    const url = `http://www.omdbapi.com/?t="Red-One"&apikey=74595494`;
+    const omdbUrl = `http://www.omdbapi.com/?t="${title}"&apikey=${omdbApiKey}`;
 
-    fetch(url)
+    fetch(omdbUrl)
     .then(response => response.json())
     .then(data => {
         if (data.Response === "True") {
+            fetchTrailerFromTMDB(data.title, data.imdbID, data);
             let votes = data.imdbVotes;
             const numberedVotes = parseInt(votes.replace(/,/g, ""));
 
@@ -107,12 +109,12 @@ function searchMovie() {
 
             container.innerHTML = text;
         } else {
-            alert('Cannot load movie from api');
+            alert('Cannot load movie from OMDb api');
         }
     })
     .catch(error => {
-        console.error("There was a problem with the fetch operation:", error);
-    })
+        console.error("There was a problem with the OMDb fetch operation:", error);
+    });
 }
 
 searchMovie();
