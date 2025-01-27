@@ -3,14 +3,14 @@ const tmdbApiKey = "ad44c9ef1393dce98f4d2f0cfc319492";
 const container = document.querySelector("#container");
 
 function searchMovie() {
-    const title = "Red One";
+    const title = "Inception";
     const omdbUrl = `http://www.omdbapi.com/?t="${title}"&apikey=${omdbApiKey}`;
 
     fetch(omdbUrl)
     .then(response => response.json())
     .then(data => {
         if (data.Response === "True") {
-            fetchTrailerFromTMDB(data.title, data.imdbID, data);
+            fetchTrailerFromTMDB(data.imdbID, data);
         } else {
             alert('Cannot load movie from OMDb api');
         }
@@ -20,19 +20,38 @@ function searchMovie() {
     });
 }
 
-function fetchTrailerByMovieId(movieId, omdbData) {
-    const tmdbTrailerUrl = `https://api.themovidedb.org/3/movie/${movieId}/videos?api_key=${tmdbApiKey}`;
+function fetchTrailerFromTMDB(imdbId, omdbData) {
+    const tmdbSearchUrl = `https://api.themoviedb.org/3/find/${imdbId}?api_key=${tmdbApiKey}&external_source=imdb_id`;
 
-    fetch(tmdbTrailerUrl)
-    .then(response => response.json)
+    fetch(tmdbSearchUrl)
+    .then(response => response.json())
     .then(data => {
-        const trailers = data.results.filter(video => video.type === "Trailer" && video.site === "Youtube");
-        const trailer = trailers.length > 0 ? trailers[0] : null;
-        displayMovie(omdbData, trailer);
+        if (data.movie_results.length > 0) {
+            const movieId = data.movie_results[0].id;
+            fetchTrailerByMovieId(movieId, omdbData);
+        } else {
+            alert('Movie not found in TMDB');
+        }
     })
     .catch(error => {
-        console.error("There was a problem fetching the TMDB trailer:", error);
+        console.error("There was a problem with the TMDB fetch operation:", error);
     });
+}
+
+function fetchTrailerByMovieId(movieId, omdbData) {
+    const tmdbTrailerUrl = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${tmdbApiKey}`;
+
+    fetch(tmdbTrailerUrl)
+        .then(response => response.json())
+        .then(data => {
+            const trailers = data.results ? data.results.filter(video => video.type === "Trailer" && video.site === "YouTube") : [];
+            const trailer = trailers.length > 0 ? trailers[0] : null;
+            
+            displayMovie(omdbData, trailer);
+        })
+        .catch(error => {
+            console.error("There was a problem fetching the TMDB trailer:", error);
+        });
 }
 
 function displayMovie(omdbData, trailer) {
@@ -40,7 +59,9 @@ function displayMovie(omdbData, trailer) {
         const numberedVotes = parseInt(votes.replace(/,/g, ""));
 
         const trailerEmbed = trailer
-        ? `<iframe class="aspect-video w-full" src="https://www.youtube.com/embed/${trailer.key}" frameborder="0" allowfullscreen></iframe>`
+        ? `
+            <iframe class="aspect-video" src="https://www.youtube.com/embed/${trailer.key}" frameborder="0" allowfullscreen></iframe>
+        `
         : `<p>No trailer available.</p>`
 
         const text = `
@@ -85,7 +106,7 @@ function displayMovie(omdbData, trailer) {
                                     stroke-width="2" />
                             </svg>
                             <div>
-                                <span class="font-bold text-xl text-white">${data.imdbRating}</span>/10
+                                <span class="font-bold text-xl text-white">${omdbData.imdbRating}</span>/10
                                 <p class="text-xs">${numberedVotes >= 1000 ? `${votes.substr(0, 3)}k` : omdbData.imdbVotes}</p>
                             </div>
                         </div>
@@ -102,9 +123,9 @@ function displayMovie(omdbData, trailer) {
                         <p>${omdbData.Genre}</p>
                     </div>  
                     <div>
-                        <p class="font-bold">Director <span class="font-normal text-blue-400">${data.Director}</span></p>
-                        <p class="font-bold">Writers <span class="font-normal text-blue-400">${data.Writer}</span></p>
-                        <p class="font-bold">Stars <span class="font-normal text-blue-400">${data.Actors}</span></p>
+                        <p class="font-bold">Director <span class="font-normal text-blue-400">${omdbData.Director}</span></p>
+                        <p class="font-bold">Writers <span class="font-normal text-blue-400">${omdbData.Writer}</span></p>
+                        <p class="font-bold">Stars <span class="font-normal text-blue-400">${omdbData.Actors}</span></p>
                     </div>
                 </div>
 
