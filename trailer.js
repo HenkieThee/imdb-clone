@@ -117,4 +117,19 @@ function searchMovie() {
     });
 }
 
+function fetchTrailerByMovieId(movieId, omdbData) {
+    const tmdbTrailerUrl = `https://api.themovidedb.org/3/movie/${movieId}/videos?api_key=${tmdbApiKey}`;
+
+    fetch(tmdbTrailerUrl)
+    .then(response => response.json)
+    .then(data => {
+        const trailers = data.results.filter(video => video.type === "Trailer" && video.site === "Youtube");
+        const trailer = trailers.length > 0 ? trailers[0] : null;
+        displayMovie(omdbData, trailer);
+    })
+    .catch(error => {
+        console.error("There was a problem fetching the TMDB trailer:", error);
+    });
+}
+
 searchMovie();
