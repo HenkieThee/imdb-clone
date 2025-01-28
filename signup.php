@@ -6,7 +6,7 @@
     <title>IMDb Clone - Sign Up</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-200 flex justify-center items-center h-screen">
+<body class="bg-black flex justify-center items-center h-screen">
     <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center">
         <img src="imdb.png" alt="Logo" class="w-25 h-16 mb-4">
         <div class="w-96">
