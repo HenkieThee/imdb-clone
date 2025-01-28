@@ -9,8 +9,17 @@
 <body class="bg-black flex justify-center items-center h-screen">
     <div class="bg-white p-6 rounded-lg shadow-md flex">
         <div class="w-96 mr-6">
-        <img src="imdb.png" alt="Logo" class="w-25 h-16 mb-4 ml-auto mr-auto">
+            <img src="imdb.png" alt="Logo" class="w-25 h-16 mb-4 ml-auto mr-auto">
             <h1 class="text-2xl mb-6 text-gray-800">Sign In</h1>
+            <?php if (isset($_GET['error'])): ?>
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+                    <?php if ($_GET['error'] == 'invalid_password'): ?>
+                        <span class="block sm:inline">Invalid password. Please try again.</span>
+                    <?php elseif ($_GET['error'] == 'no_user'): ?>
+                        <span class="block sm:inline">No user found with that email.</span>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
             <form action="signin_process.php" method="post">
                 <label for="email" class="block mb-2 text-gray-600">Email</label>
                 <input type="email" id="email" name="email" required class="w-full p-2 mb-4 border border-gray-300 rounded">
