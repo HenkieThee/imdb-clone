@@ -23,7 +23,11 @@ $stmt->bind_param("sss", $name, $email, $password);
 
 // Voer de query uit
 if ($stmt->execute()) {
-    echo "New account created successfully";
+    // Start een sessie en log de gebruiker in
+    session_start();
+    $_SESSION['user_id'] = $stmt->insert_id;
+    header("Location: account.php");
+    exit();
 } else {
     echo "Error: " . $stmt->error;
 }

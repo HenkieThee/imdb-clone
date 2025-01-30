@@ -1,3 +1,9 @@
+
+<?php
+session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang='en'>
 <head>
@@ -89,11 +95,15 @@
                <a href="#" class="mx-2 flex items-center">
                    <i class="fas fa-bookmark mr-1"></i> Watchlist
                </a>
-               <a href="signin.php" class="mx-2 flex items-center">
-                   <i class="fas fa-sign-in-alt mr-1"></i> Sign In
-               </a>
-           </div>
-       </div>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <a href="account.php" class="mx-2 flex items-center">
+                        <i class="fas fa-user mr-1"></i> Account
+                    </a>
+                <?php else: ?>
+                    <a href="signin.php" class="mx-2 flex items-center">
+                        <i class="fas fa-sign-in-alt mr-1"></i> Sign In
+                    </a>
+                <?php endif; ?>
    </nav>
 
    <!-- Hero Section -->
