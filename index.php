@@ -89,7 +89,7 @@
                <a href="#" class="mx-2 flex items-center">
                    <i class="fas fa-bookmark mr-1"></i> Watchlist
                </a>
-               <a href="#" class="mx-2 flex items-center">
+               <a href="signin.php" class="mx-2 flex items-center">
                    <i class="fas fa-sign-in-alt mr-1"></i> Sign In
                </a>
            </div>
