@@ -157,20 +157,40 @@
 
 
    <!-- Popular TV Shows Section -->
-   <section class="py-10 bg-gray-900">
-       <div class="container mx-auto">
-           <h2 class="text-2xl font-bold mb-4">Popular TV Shows</h2>
-           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-               <!-- TV Show Card -->
-               <div class="bg-gray-800 p-4 rounded">
-                   <img src="images/tvshow1.jpg" alt="TV Show 1" class="w-full h-48 object-cover rounded mb-4">
-                   <h3 class="text-lg font-bold">TV Show Title 1</h3>
-                   <p class="text-gray-400">Description of the TV show.</p>
-               </div>
-               <!-- Repeat TV Show Cards as needed -->
-           </div>
-       </div>
-   </section>
+   <section class="py-10">
+        <div class="container mx-auto">
+            <h2 class="text-2xl font-bold mb-6">Trending Movies</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Movie Card -->
+                <div class="relative bg-gray-800 rounded-xl shadow-lg overflow-hidden group cursor-pointer h-96">
+                    <div class="aspect-w-2 aspect-h-3"> <!-- Enforces a 2:3 aspect ratio -->
+                        <img src="images/tvShow1.jpg" alt="Movie 1" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <!-- Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <!-- Movie Title -->
+                    <div class="relative z-10 flex items-end justify-center h-full p-4">
+                        <h3 class="text-lg font-bold text-white drop-shadow-md group-hover:text-yellow-500 transition-colors duration-300">
+                            Mufasa
+                        </h3>
+                    </div>
+                </div>
+                <!-- Repeat Movie Cards -->
+                <div class="relative bg-gray-800 rounded-xl shadow-lg overflow-hidden group cursor-pointer">
+                    <div class="aspect-w-2 aspect-h-3">
+                        <img src="images/tvShow1.jpg" alt="Movie 2" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="relative z-10 flex items-end justify-center h-full p-4">
+                        <h3 class="text-lg font-bold text-white drop-shadow-md group-hover:text-yellow-500 transition-colors duration-300">
+                            Mufasa
+                        </h3>
+                    </div>
+                </div>
+                <!-- Add more cards as needed -->
+            </div>
+        </div>
+    </section>
 
    <!-- Footer -->
    <footer class="bg-gray-800 text-gray-400 py-6">
