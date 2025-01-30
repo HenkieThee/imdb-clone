@@ -26,7 +26,8 @@
                 <label for="password" class="block mb-2 text-gray-600">Password</label>
                 <input type="password" id="password" name="password" required class="w-full p-2 mb-4 border border-gray-300 rounded">
                 <button type="submit" class="w-full p-2 bg-yellow-500 text-gray-800 rounded hover:bg-yellow-600 mb-4">Sign In</button>
-                <a href="signup.php" class="w-full p-2 bg-yellow-500 text-gray-800 rounded hover:bg-blue-600 text-center block">Sign Up</a>
+                <a href="signup.php" class="w-full p-2 bg-yellow-500 text-gray-800 rounded hover:bg-blue-600 text-center block mb-4">Sign Up</a>
+                <a href="index.php" class="w-full p-2 bg-yellow-500 text-gray-800 rounded hover:bg-blue-600 text-center block">Back to Home</a>
             </form>
         </div>
         <div class="max-w-md">
