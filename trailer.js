@@ -2,71 +2,19 @@ const omdbApiKey = "74595494";
 const tmdbApiKey = "ad44c9ef1393dce98f4d2f0cfc319492";
 const container = document.querySelector("#container");
 
-function searchMovie() {
-    const title = "Inception";
-    const omdbUrl = `http://www.omdbapi.com/?t="${title}"&apikey=${omdbApiKey}`;
-
-    fetch(omdbUrl)
-    .then(response => response.json())
-    .then(data => {
-        if (data.Response === "True") {
-            fetchTrailerFromTMDB(data.imdbID, data);
-        } else {
-            alert('Cannot load movie from OMDb api');
-        }
-    })
-    .catch(error => {
-        console.error("There was a problem with the OMDb fetch operation:", error);
-    });
-}
-
-function fetchTrailerFromTMDB(imdbId, omdbData) {
-    const tmdbSearchUrl = `https://api.themoviedb.org/3/find/${imdbId}?api_key=${tmdbApiKey}&external_source=imdb_id`;
-
-    fetch(tmdbSearchUrl)
-    .then(response => response.json())
-    .then(data => {
-        if (data.movie_results.length > 0) {
-            const movieId = data.movie_results[0].id;
-            fetchTrailerByMovieId(movieId, omdbData);
-        } else {
-            alert('Movie not found in TMDB');
-        }
-    })
-    .catch(error => {
-        console.error("There was a problem with the TMDB fetch operation:", error);
-    });
-}
-
-function fetchTrailerByMovieId(movieId, omdbData) {
-    const tmdbTrailerUrl = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${tmdbApiKey}`;
-
-    fetch(tmdbTrailerUrl)
-        .then(response => response.json())
-        .then(data => {
-            const trailers = data.results ? data.results.filter(video => video.type === "Trailer" && video.site === "YouTube") : [];
-            const trailer = trailers.length > 0 ? trailers[0] : null;
-            
-            displayMovie(omdbData, trailer);
-        })
-        .catch(error => {
-            console.error("There was a problem fetching the TMDB trailer:", error);
-        });
-}
-
 function displayMovie(omdbData, trailer) {
         const votes = omdbData.imdbVotes;
         const numberedVotes = parseInt(votes.replace(/,/g, ""));
 
         const trailerEmbed = trailer
         ? `
-            <iframe class="aspect-video" src="https://www.youtube.com/embed/${trailer.key}" frameborder="0" allowfullscreen></iframe>
+            <iframe class="rounded-xl" width="760" height="386" src="https://www.youtube.com/embed/${trailer.key}" frameborder="0" allowfullscreen></iframe>
         `
         : `<p>No trailer available.</p>`
 
         const text = `
-        <section class="py-20 mx-auto w-4/6">
-            <div class="flex justify-between">
+        <section class="mx-auto pb-10 pt-20 w-5/6">
+            <div class="flex justify-between w-[90%]">
                 <div>
                     <p id="title" class="text-5xl">${omdbData.Title}</p>
                     <div class="flex gap-2">
@@ -106,37 +54,29 @@ function displayMovie(omdbData, trailer) {
                                     stroke-width="2" />
                             </svg>
                             <div>
-                                <span class="font-bold text-xl text-white">${omdbData.imdbRating}</span>/10
+                                <p>
+                                    <span class="font-bold text-xl text-white">${omdbData.imdbRating}</span>/10
+                                </p>
                                 <p class="text-xs">${numberedVotes >= 1000 ? `${votes.substr(0, 3)}k` : omdbData.imdbVotes}</p>
                             </div>
                         </div>
                 </div>
             </div>
         
-            <div class="flex items-center justify-between">
+            <div class="flex items-center">
                 <div>
                     <div class="relative">
-                        <img src="${omdbData.Poster}" id="poster" class="rounded-xl rounded-tl-none w-56">
+                        <img src="${omdbData.Poster}" id="poster" class="rounded-xl rounded-tl-none w-64">
                         <button class="absolute bg-black text-white text-5xl top-0 opacity-50">+</button>
-                    </div>
-                    <div>
-                        <p>${omdbData.Genre}</p>
-                    </div>  
-                    <div>
-                        <p class="font-bold">Director <span class="font-normal text-blue-400">${omdbData.Director}</span></p>
-                        <p class="font-bold">Writers <span class="font-normal text-blue-400">${omdbData.Writer}</span></p>
-                        <p class="font-bold">Stars <span class="font-normal text-blue-400">${omdbData.Actors}</span></p>
                     </div>
                 </div>
 
-                <div>
-                ${trailerEmbed}
+                <div class="px-4">
+                    ${trailerEmbed}
                 </div>
 
                 <div class="flex flex-col gap-2">
-                    <div>
-                        <button class="bg-yellow-500 flex flex-nowrap font-semibold rounded text-black text-sm p-1">Add to Watchlist</button>
-                    </div>
+                    <button class="bg-yellow-500 cursor-pointer flex flex-nowrap font-semibold rounded text-black text-sm p-1">Add to Watchlist</button>
 
                     <div>
                         <span class="flex gap-2">
@@ -155,13 +95,77 @@ function displayMovie(omdbData, trailer) {
                     </div>
                 </div>
             </div>
-        
         </section>
-            <p class="text-center">${omdbData.Plot}</p>
-            TODO: Make a relative films list and have a recently viewed list
+
+        <div class="flex flex-col gap-2 ml-32 pb-10 w-3/6">
+            <div>
+                <p>${omdbData.Genre}</p>
+                <p>${omdbData.Plot}</p>
+            </div>
+
+            <div>
+                <p class="font-bold">Director <span class="casting-info">${omdbData.Director}</span></p>
+                <p class="font-bold">Writers <span class="casting-info">${omdbData.Writer}</span></p>
+                <p class="font-bold">Stars <span class="casting-info">${omdbData.Actors}</span></p>
+            </div>
+
+            <p></p>
+        </div>
         `
 
         container.innerHTML = text;
+}
+
+function fetchTrailerFromTMDB(imdbId, omdbData) {
+    const tmdbSearchUrl = `https://api.themoviedb.org/3/find/${imdbId}?api_key=${tmdbApiKey}&external_source=imdb_id`;
+
+    fetch(tmdbSearchUrl)
+    .then(response => response.json())
+    .then(data => {
+        if (data.movie_results.length > 0) {
+            const movieId = data.movie_results[0].id;
+            fetchTrailerByMovieId(movieId, omdbData);
+        } else {
+            alert('Movie not found in TMDB');
+        }
+    })
+    .catch(error => {
+        console.error("There was a problem with the TMDB fetch operation:", error);
+    });
+}
+
+function fetchTrailerByMovieId(movieId, omdbData) {
+    const tmdbTrailerUrl = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${tmdbApiKey}`;
+
+    fetch(tmdbTrailerUrl)
+        .then(response => response.json())
+        .then(data => {
+            const trailers = data.results ? data.results.filter(video => video.type === "Trailer" && video.site === "YouTube") : [];
+            const trailer = trailers.length > 0 ? trailers[0] : null;
+            
+            displayMovie(omdbData, trailer);
+        })
+        .catch(error => {
+            console.error("There was a problem fetching the TMDB trailer:", error);
+        });
+}
+
+function searchMovie() {
+    const title = "The Matrix";
+    const omdbUrl = `http://www.omdbapi.com/?t="${title}"&apikey=${omdbApiKey}`;
+
+    fetch(omdbUrl)
+    .then(response => response.json())
+    .then(data => {
+        if (data.Response === "True") {
+            fetchTrailerFromTMDB(data.imdbID, data);
+        } else {
+            alert('Cannot load movie from OMDb api');
+        }
+    })
+    .catch(error => {
+        console.error("There was a problem with the OMDb fetch operation:", error);
+    });
 }
 
 searchMovie();
