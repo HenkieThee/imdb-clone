@@ -17,7 +17,7 @@
                     </li>
                     <li>
                         <button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-700">
-                            <i class="fas fa-tv mr-2"></i> TV Episodes
+                        <i class="fas fa-tv mr-2"></i> TV Episodes
                         </button>
                     </li>
                     <li>
@@ -33,11 +33,13 @@
                 </ul>
             </div>
             <div class="relative w-full">
-                <input type="search" id="search-dropdown" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-white rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Search movies..." required />
-                <button type="submit" class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-gray-900 bg-white rounded-e-lg border border-gray-300 hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100">
-                    <i class="fas fa-search"></i>
-                    <span class="sr-only">Search</span>
-                </button>
+                <form action="browse.php" method="GET">
+                    <input type="search" name="query" id="search-dropdown" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-white rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Search movies..." required />
+                    <button type="submit" class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-gray-900 bg-white rounded-e-lg border border-gray-300 hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100">
+                        <i class="fas fa-search"></i>
+                        <span class="sr-only">Search</span>
+                    </button>
+                </form>
             </div>
         </form>
         <div class="flex items-center">
