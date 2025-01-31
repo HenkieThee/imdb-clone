@@ -45,14 +45,14 @@
                 <i class="fas fa-bookmark mr-1"></i> Watchlist
             </a>
             <?php if (isset($_SESSION['user_id'])): ?>
-                <a href="account.php" class="mx-2 flex items-center">
-                    <i class="fas fa-user mr-1"></i> Account
-                </a>
-            <?php else: ?>
-                <a href="signin.php" class="mx-2 flex items-center">
-                    <i class="fas fa-sign-in-alt mr-1"></i> Sign In
-                </a>
-            <?php endif; ?>
+                    <a href="account.php" class="mx-2 flex items-center">
+                        <i class="fas fa-user mr-1"></i> <?php echo htmlspecialchars($name); ?>
+                    </a>
+                <?php else: ?>
+                    <a href="signin.php" class="mx-2 flex items-center">
+                        <i class="fas fa-sign-in-alt mr-1"></i> Sign In
+                    </a>
+                <?php endif; ?>
         </div>
     </div>
 </nav>

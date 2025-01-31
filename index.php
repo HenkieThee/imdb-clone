@@ -1,6 +1,32 @@
 
 <?php
 session_start();
+
+// Controleer of de gebruiker is ingelogd
+if (isset($_SESSION['user_id'])) {
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "imdb_clone";
+
+    // Maak verbinding met de database
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Controleer de verbinding
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Verkrijg de naam van de ingelogde gebruiker
+    $user_id = $_SESSION['user_id'];
+    $stmt = $conn->prepare("SELECT name FROM users WHERE id = ?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $stmt->bind_result($name);
+    $stmt->fetch();
+    $stmt->close();
+    $conn->close();
+}
 ?>
 
 
@@ -62,6 +88,7 @@ session_start();
         }, 5000); 
     </script>
 <?php endif; ?>
+
 
    <!-- Hero Section -->
    <section class="relative bg-gray-900 text-white py-20 overflow-hidden">
