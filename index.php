@@ -77,7 +77,6 @@ if (isset($_SESSION['user_id'])) {
   
     <?php
     include 'nav.php';
-    include "search.php";
     ?>
 
 <?php if (isset($_SESSION['success_message'])): ?>
