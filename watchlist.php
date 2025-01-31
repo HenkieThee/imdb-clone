@@ -12,22 +12,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_from_watchlist
 }
 
 
-// Controleer of de gebruiker is ingelogd
 if (isset($_SESSION['user_id'])) {
     $servername = "localhost";
     $username = "root";
     $password = "";
     $dbname = "imdb_clone";
 
-    // Maak verbinding met de database
     $conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Controleer de verbinding
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Verkrijg de naam van de ingelogde gebruiker
     $user_id = $_SESSION['user_id'];
     $stmt = $conn->prepare("SELECT name FROM users WHERE id = ?");
     $stmt->bind_param("i", $user_id);
@@ -38,8 +34,6 @@ if (isset($_SESSION['user_id'])) {
     $conn->close();
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">

@@ -2,6 +2,12 @@
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_watchlist'])) {
+    if (!isset($_SESSION['user_id'])) {
+        $_SESSION['message'] = "You need to log in first to add movies to your watchlist.";
+        header('Location: trailer.php');
+        exit();
+    }
+
     $watchlistItem = [
         'title' => $_POST['title'],
         'year' => $_POST['year'],

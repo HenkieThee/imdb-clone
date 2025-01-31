@@ -1,5 +1,7 @@
 <?php
 
+$omdbApiKey = "74595494";
+
 function fetchRandomMovie($apiKey) {
     $titles = ["Inception", "The Matrix", "Interstellar", "The Dark Knight", "Fight Club", "Pulp Fiction", "Forrest Gump", "The Shawshank Redemption", "The Godfather", "The Lord of the Rings"];
     $randomTitle = $titles[array_rand($titles)];
