@@ -1,5 +1,24 @@
 <?php
 session_start();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_watchlist'])) {
+    $watchlistItem = [
+        'title' => $_POST['title'],
+        'year' => $_POST['year'],
+        'rated' => $_POST['rated'],
+        'runtime' => $_POST['runtime'],
+        'poster' => $_POST['poster'],
+        'trailer_key' => $_POST['trailer_key']
+    ];
+
+    if (!isset($_SESSION['watchlist'])) {
+        $_SESSION['watchlist'] = [];
+    }
+
+    $_SESSION['watchlist'][] = $watchlistItem;
+    header('Location: watchlist.php');
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +28,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trailer</title>
     <link rel="stylesheet" href="trailer.css">
-   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <style>
        .bg-custom {
@@ -86,7 +105,7 @@ session_start();
                </div>
            </form>
            <div class="flex items-center">
-               <a href="" class="mx-2 flex items-center">
+               <a href="watchlist.php" class="mx-2 flex items-center">
                    <i class="fas fa-bookmark mr-1"></i> Watchlist
                </a>
                 <?php if (isset($_SESSION['user_id'])): ?>
@@ -193,7 +212,15 @@ session_start();
                     </div>
 
                     <div class='flex flex-col justify-center gap-2'>
-                        <button class='bg-yellow-500 cursor-pointer flex flex-nowrap font-semibold rounded text-black text-sm p-1'>Add to Watchlist</button>
+                        <form method='POST' action=''>
+                            <input type='hidden' name='title' value='{$omdbData['Title']}'>
+                            <input type='hidden' name='year' value='{$omdbData['Year']}'>
+                            <input type='hidden' name='rated' value='{$omdbData['Rated']}'>
+                            <input type='hidden' name='runtime' value='{$omdbData['Runtime']}'>
+                            <input type='hidden' name='poster' value='{$omdbData['Poster']}'>
+                            <input type='hidden' name='trailer_key' value='{$trailer['key']}'>
+                            <button type='submit' name='add_to_watchlist' class='bg-yellow-500 cursor-pointer flex flex-nowrap font-semibold rounded text-black text-sm p-1'>Add to Watchlist</button>
+                        </form>
                         <div>
                             <span class='flex gap-1'>
                                 <p class='" . ($omdbData['Metascore'] <= 50 ? 'bg-red-400' : 'bg-green-400') . " font-bold px-1'>{$omdbData['Metascore']}</p>
