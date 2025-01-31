@@ -160,7 +160,7 @@ session_start();
     </section>
 
    <!-- Footer -->
-   <footer class="bg-gray-800 text-gray-400 py-6">
+   <footer class="text-gray-400 py-6">
        <div class="container mx-auto text-center">
            <p>&copy; 2023 IMDB Clone. All rights reserved.</p>
        </div>
