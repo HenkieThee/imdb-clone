@@ -1,5 +1,15 @@
 <?php
 session_start();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_from_watchlist'])) {
+    $index = $_POST['index'];
+    if (isset($_SESSION['watchlist'][$index])) {
+        unset($_SESSION['watchlist'][$index]);
+        $_SESSION['watchlist'] = array_values($_SESSION['watchlist']);
+    }
+    header('Location: watchlist.php');
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -67,14 +77,18 @@ session_start();
    </nav>
 
 <main id="container" class="bg-stone-900 text-white">
-    <section class='mx-auto py-10 w-5/6'>
+    <section class='mx-auto py-10 w-4/6'>
         <h1 class='text-5xl mb-6'>Your Watchlist</h1>
         <?php if (isset($_SESSION['watchlist']) && !empty($_SESSION['watchlist'])): ?>
             <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-                <?php foreach ($_SESSION['watchlist'] as $item): ?>
+                <?php foreach ($_SESSION['watchlist'] as $index => $item): ?>
                     <div class='bg-gray-800 p-4 rounded-lg'>
                         <img src='<?php echo $item['poster']; ?>' alt='<?php echo $item['title']; ?>' class='rounded-lg mb-4'>
                         <h2 class='text-2xl mb-2'><?php echo $item['title']; ?></h2>
+                        <form method='POST' action=''>
+                            <input type='hidden' name='index' value='<?php echo $index; ?>'>
+                            <button type='submit' name='delete_from_watchlist' class='bg-red-500 cursor-pointer flex flex-nowrap font-semibold rounded text-white text-sm p-1'>Remove from Watchlist</button>
+                        </form>
                     </div>
                 <?php endforeach; ?>
             </div>
