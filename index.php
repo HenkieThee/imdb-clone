@@ -105,6 +105,16 @@ session_start();
                     </a>
                 <?php endif; ?>
    </nav>
+<?php if (isset($_SESSION['success_message'])): ?>
+    <div id="success-message" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4 container mx-auto mt-4">
+        <?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?>
+    </div>
+    <script>
+        setTimeout(function() {
+            document.getElementById('success-message').style.display = 'none';
+        }, 5000); // 5000 milliseconds = 5 seconds
+    </script>
+<?php endif; ?>
 
    <!-- Hero Section -->
    <section class="relative bg-gray-900 text-white py-20 overflow-hidden">
@@ -210,3 +220,4 @@ session_start();
    </footer>
 </body> 
 </html>
+
