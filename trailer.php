@@ -121,9 +121,6 @@ if (isset($_SESSION['user_id'])) {
             unset($_SESSION['message']);
         }
 
-        require 'env.php';
-        loadEnv(__DIR__ . '/.env');
-
         $omdbApiKey = getenv('omdbApiKey');
         $tmdbApiKey = getenv('tmdbApiKey');
 
