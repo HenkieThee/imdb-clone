@@ -20,7 +20,7 @@
                 <input type="password" id="password" name="password" required class="w-full p-2 mb-4 border border-gray-300 rounded" minlength="8">
                 <p class="text-gray-600 mb-4">Passwords must be at least 8 characters.</p>
                 <button type="submit" class="w-full p-2 bg-yellow-500 text-gray-800 rounded hover:bg-yellow-600 mb-4">Create Account</button>
-                <a href="signin.php" class="w-full p-2 bg-yellow-500 text-gray-800 rounded hover:bg-blue-600 text-center block">Sign In</a>
+                <a href="signin.php" class="w-full p-2 bg-yellow-500 text-gray-800 rounded hover:bg-yellow-600 text-center block">Sign In</a>
             </form>
         </div>
     </div>
