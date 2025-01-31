@@ -105,7 +105,7 @@ if (isset($_SESSION['user_id'])) {
             <p class="text-xl mb-8 text-gray-300 drop-shadow-md">
                 Discover the latest movies, TV shows, and celebrities.
             </p>
-            <a href="#" class="bg-yellow-500 text-black py-3 px-6 text-lg font-semibold rounded-lg shadow-md hover:bg-yellow-600 transition-all duration-300">
+            <a href="browse.php" class="bg-yellow-500 text-black py-3 px-6 text-lg font-semibold rounded-lg shadow-md hover:bg-yellow-600 transition-all duration-300">
                 Browse Now
             </a>
         </div>
