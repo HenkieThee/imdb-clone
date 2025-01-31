@@ -40,15 +40,12 @@ if (isset($_SESSION['user_id'])) {
     $password = "";
     $dbname = "imdb_clone";
 
-    // Maak verbinding met de database
     $conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Controleer de verbinding
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Verkrijg de naam van de ingelogde gebruiker
     $user_id = $_SESSION['user_id'];
     $stmt = $conn->prepare("SELECT name FROM users WHERE id = ?");
     $stmt->bind_param("i", $user_id);
@@ -121,8 +118,8 @@ if (isset($_SESSION['user_id'])) {
             unset($_SESSION['message']);
         }
 
-        $omdbApiKey = getenv('omdbApiKey');
-        $tmdbApiKey = getenv('tmdbApiKey');
+        $omdbApiKey = "74595494";
+        $tmdbApiKey = "ad44c9ef1393dce98f4d2f0cfc319492";
 
         $title = "Shrek";
         $omdbUrl = "http://www.omdbapi.com/?t=" . urlencode($title) . "&apikey=" . $omdbApiKey;
