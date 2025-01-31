@@ -1,3 +1,50 @@
+<?php
+session_start();
+
+$omdbApiKey = "74595494";
+
+function fetchRandomMovie($apiKey) {
+    $titles = ["Inception", "The Matrix", "Interstellar", "The Dark Knight", "Fight Club", "Pulp Fiction", "Forrest Gump", "The Shawshank Redemption", "The Godfather", "The Lord of the Rings"];
+    $randomTitle = $titles[array_rand($titles)];
+    $url = "http://www.omdbapi.com/?t=" . urlencode($randomTitle) . "&apikey=" . $apiKey;
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    $response = curl_exec($ch);
+    curl_close($ch);
+    return json_decode($response, true);
+}
+
+$movies = [];
+for ($i = 0; $i < 50; $i++) {
+    $movie = fetchRandomMovie($omdbApiKey);
+    if ($movie['Response'] === "True") {
+        $movies[] = $movie;
+    }
+}
+
+if (isset($_SESSION['user_id'])) {
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "imdb_clone";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $user_id = $_SESSION['user_id'];
+    $stmt = $conn->prepare("SELECT name FROM users WHERE id = ?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $stmt->bind_result($name);
+    $stmt->fetch();
+    $stmt->close();
+    $conn->close();
+}
+?>
 <!DOCTYPE html>
 <html lang='en'>
 <head>
@@ -34,14 +81,9 @@
        }
        .card-content {
            position: relative;
-           z-index: 1;
-           background: rgba(0, 0, 0, 0.5);
-           padding: 1rem;
-           border-radius: 0.5rem;
        }
    </style>
 </head>
-
 <body class="bg-black text-white">
     <?php include 'nav.php'; ?>
 
@@ -49,22 +91,22 @@
         <div class="container mx-auto">
             <h2 class="text-2xl font-bold mb-6">All Movies</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <?php for ($i = 0; $i < 200; $i++): ?>
+                <?php foreach ($movies as $movie): ?>
                 <!-- Movie Card -->
                 <div class="relative bg-gray-800 rounded-xl shadow-lg overflow-hidden group cursor-pointer h-96">
                     <div class="aspect-w-2 aspect-h-3"> 
-                        <img src="images/moviePicture1.jpg" alt="Movie <?php echo $i + 1; ?>" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <img src="<?php echo $movie['Poster']; ?>" alt="<?php echo $movie['Title']; ?>" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                     </div>
                     <!-- Overlay -->
                     <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <!-- Movie Title -->
                     <div class="relative z-10 flex items-end justify-center h-full p-4">
                         <h3 class="text-lg font-bold text-white drop-shadow-md group-hover:text-yellow-500 transition-colors duration-300">
-                            Movie <?php echo $i + 1; ?>
+                            <?php echo $movie['Title']; ?>
                         </h3>
                     </div>
                 </div>
-                <?php endfor; ?>
+                <?php endforeach; ?>
             </div>
         </div>
     </section>
@@ -75,5 +117,5 @@
             <p>&copy; 2025 IMDB Clone. All rights reserved.</p>
         </div>
     </footer>
-</body> 
+</body>
 </html>
