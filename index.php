@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 
@@ -76,7 +75,10 @@ if (isset($_SESSION['user_id'])) {
 
 <body class="bg-black text-white">
   
-    <?php include 'nav.php'; ?>
+    <?php
+    include 'nav.php';
+    include "search.php";
+    ?>
 
 <?php if (isset($_SESSION['success_message'])): ?>
     <div id="success-message" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4 container mx-auto mt-4">

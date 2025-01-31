@@ -106,7 +106,10 @@ if (isset($_SESSION['user_id'])) {
    </style>
 </head>
 <body>
-       <?php include "nav.php"?>
+       <?php 
+       include "nav.php";
+       include "search.php";
+       ?>
 
     <main id="container" class="bg-stone-900 text-white">
         <?php
