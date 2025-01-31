@@ -33,6 +33,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_watchlist'])) 
     header('Location: trailer.php');
     exit();
 }
+
+if (isset($_SESSION['user_id'])) {
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "imdb_clone";
+
+    // Maak verbinding met de database
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Controleer de verbinding
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Verkrijg de naam van de ingelogde gebruiker
+    $user_id = $_SESSION['user_id'];
+    $stmt = $conn->prepare("SELECT name FROM users WHERE id = ?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $stmt->bind_result($name);
+    $stmt->fetch();
+    $stmt->close();
+    $conn->close();
+}
 ?>
 
 <!DOCTYPE html>
@@ -101,8 +126,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_watchlist'])) 
 
         $omdbApiKey = getenv('omdbApiKey');
         $tmdbApiKey = getenv('tmdbApiKey');
-
-        echo "<script>console.log('omdbApiKey: $omdbApiKey, tmdbApiKey: $tmdbApiKey');</script>";
 
         $title = "Shrek";
         $omdbUrl = "http://www.omdbapi.com/?t=" . urlencode($title) . "&apikey=" . $omdbApiKey;
