@@ -162,7 +162,7 @@ session_start();
    <!-- Footer -->
    <footer class="text-gray-400 py-6">
        <div class="container mx-auto text-center">
-           <p>&copy; 2023 IMDB Clone. All rights reserved.</p>
+           <p>&copy; 2025 IMDB Clone. All rights reserved.</p>
        </div>
    </footer>
 </body> 
