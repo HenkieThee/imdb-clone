@@ -154,7 +154,6 @@ session_start();
                         </h3>
                     </div>
                 </div>
-                <!-- Add more cards as needed -->
             </div>
         </div>
     </section>

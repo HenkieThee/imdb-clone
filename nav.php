@@ -1,6 +1,6 @@
 <nav class="bg-custom text-white p-4">
     <div class="container mx-auto flex justify-between items-center">
-        <a href="#" class="flex items-center">
+        <a href="index.php" class="flex items-center">
             <img src="images/logo.png" alt="Logo" class="h-8 mr-3">
             <span class="text-lg font-bold">IMDB Clone</span>
         </a>
@@ -41,7 +41,7 @@
             </div>
         </form>
         <div class="flex items-center">
-            <a href="#" class="mx-2 flex items-center">
+            <a href="watchlist.php" class="mx-2 flex items-center">
                 <i class="fas fa-bookmark mr-1"></i> Watchlist
             </a>
             <?php if (isset($_SESSION['user_id'])): ?>
