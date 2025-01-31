@@ -10,7 +10,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_from_watchlist
     header('Location: watchlist.php');
     exit();
 }
+
+
+// Controleer of de gebruiker is ingelogd
+if (isset($_SESSION['user_id'])) {
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "imdb_clone";
+
+    // Maak verbinding met de database
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Controleer de verbinding
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Verkrijg de naam van de ingelogde gebruiker
+    $user_id = $_SESSION['user_id'];
+    $stmt = $conn->prepare("SELECT name FROM users WHERE id = ?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $stmt->bind_result($name);
+    $stmt->fetch();
+    $stmt->close();
+    $conn->close();
+}
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -63,9 +92,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_from_watchlist
                <a href="watchlist.php" class="mx-2 flex items-center">
                    <i class="fas fa-bookmark mr-1"></i> Watchlist
                </a>
-                <?php if (isset($_SESSION['user_id'])): ?>
+               <?php if (isset($_SESSION['user_id'])): ?>
                     <a href="account.php" class="mx-2 flex items-center">
-                        <i class="fas fa-user mr-1"></i> Account
+                        <i class="fas fa-user mr-1"></i> <?php echo htmlspecialchars($name); ?>
                     </a>
                 <?php else: ?>
                     <a href="signin.php" class="mx-2 flex items-center">
