@@ -15,8 +15,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_watchlist'])) 
         $_SESSION['watchlist'] = [];
     }
 
-    $_SESSION['watchlist'][] = $watchlistItem;
-    header('Location: watchlist.php');
+    $alreadyInWatchlist = false;
+    foreach ($_SESSION['watchlist'] as $item) {
+        if ($item['title'] === $watchlistItem['title']) {
+            $alreadyInWatchlist = true;
+            break;
+        }
+    }
+
+    if ($alreadyInWatchlist) {
+        $_SESSION['message'] = "This movie is already in your watchlist.";
+    } else {
+        $_SESSION['watchlist'][] = $watchlistItem;
+        $_SESSION['message'] = "Movie added to your watchlist.";
+    }
+
+    header('Location: trailer.php');
     exit();
 }
 ?>
@@ -59,16 +73,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_watchlist'])) 
            padding: 1rem;
            border-radius: 0.5rem;
        }
+       .close-btn {
+           background: none;
+           border: none;
+           color: black;
+           font-weight: bold;
+           cursor: pointer;
+           float: right;
+       }
    </style>
 </head>
 <body>
-    <?php include 'nav.php'; ?>
+       <?php include "nav.php"?>
 
     <main id="container" class="bg-stone-900 text-white">
         <?php
+        if (isset($_SESSION['message'])) {
+            echo "<div class='bg-yellow-500 text-black p-2 rounded'>
+                    {$_SESSION['message']}
+                    <button class='close-btn' onclick='this.parentElement.style.display=\"none\";'>&times;</button>
+                  </div>";
+            unset($_SESSION['message']);
+        }
+
         $omdbApiKey = "74595494";
         $tmdbApiKey = "ad44c9ef1393dce98f4d2f0cfc319492";
-        $title = "Shrek 2";
+        $title = "Shrek";
         $omdbUrl = "http://www.omdbapi.com/?t=" . urlencode($title) . "&apikey=" . $omdbApiKey;
 
         function fetchFromAPI($url) {
