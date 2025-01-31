@@ -96,8 +96,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_watchlist'])) 
             unset($_SESSION['message']);
         }
 
-        $omdbApiKey = "74595494";
-        $tmdbApiKey = "ad44c9ef1393dce98f4d2f0cfc319492";
+        require 'env.php';
+        loadEnv(__DIR__ . '/.env');
+
+        $omdbApiKey = getenv('omdbApiKey');
+        $tmdbApiKey = getenv('tmdbApiKey');
+
+        echo "<script>console.log('omdbApiKey: $omdbApiKey, tmdbApiKey: $tmdbApiKey');</script>";
+
         $title = "Shrek";
         $omdbUrl = "http://www.omdbapi.com/?t=" . urlencode($title) . "&apikey=" . $omdbApiKey;
 
