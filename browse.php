@@ -49,7 +49,7 @@
         <div class="container mx-auto">
             <h2 class="text-2xl font-bold mb-6">All Movies</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <?php for ($i = 0; $i < 100; $i++): ?>
+                <?php for ($i = 0; $i < 200; $i++): ?>
                 <!-- Movie Card -->
                 <div class="relative bg-gray-800 rounded-xl shadow-lg overflow-hidden group cursor-pointer h-96">
                     <div class="aspect-w-2 aspect-h-3"> 
