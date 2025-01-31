@@ -33,7 +33,7 @@ if (isset($_GET['query'])) {
         $movies = $data['Search'];
     }
 } else {
-    for ($i = 0; $i < 200; $i++) {
+    for ($i = 0; $i < 50; $i++) {
         $movie = fetchRandomMovie($omdbApiKey);
         if ($movie && $movie['Response'] === "True") {
             $movies[] = $movie;
