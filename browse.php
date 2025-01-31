@@ -74,7 +74,7 @@ if (isset($_SESSION['user_id'])) {
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <?php foreach ($movies as $movie): ?>
                 <!-- Movie Card -->
-                <div class="relative bg-gray-800 rounded-xl shadow-lg overflow-hidden group cursor-pointer h-96">
+                <a href="trailer.php?title=<?php echo urlencode($movie['Title']); ?>" class="relative bg-gray-800 rounded-xl shadow-lg overflow-hidden group cursor-pointer h-96">
                     <div class="aspect-w-2 aspect-h-3"> 
                         <img src="<?php echo $movie['Poster']; ?>" alt="<?php echo $movie['Title']; ?>" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                     </div>
@@ -86,7 +86,7 @@ if (isset($_SESSION['user_id'])) {
                             <?php echo $movie['Title']; ?>
                         </h3>
                     </div>
-                </div>
+                </a>
                 <?php endforeach; ?>
             </div>
         </div>

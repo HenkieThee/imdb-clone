@@ -130,7 +130,7 @@ if (isset($_SESSION['user_id'])) {
         $omdbApiKey = "74595494";
         $tmdbApiKey = "ad44c9ef1393dce98f4d2f0cfc319492";
 
-        $title = "Shrek";
+        $title = isset($_GET['title']) ? $_GET['title'] : 'Shrek'; 
         $omdbUrl = "http://www.omdbapi.com/?t=" . urlencode($title) . "&apikey=" . $omdbApiKey;
 
         function fetchFromAPI($url) {
@@ -225,7 +225,7 @@ if (isset($_SESSION['user_id'])) {
                             <input type='hidden' name='rated' value='{$omdbData['Rated']}'>
                             <input type='hidden' name='runtime' value='{$omdbData['Runtime']}'>
                             <input type='hidden' name='poster' value='{$omdbData['Poster']}'>
-                            <input type='hidden' name='trailer_key' value='{$trailer['key']}'>
+                            <input type='hidden' name='trailer_key' value='" . ($trailer ? $trailer['key'] : '') . "'>
                             <button type='submit' name='add_to_watchlist' class='bg-yellow-500 cursor-pointer flex flex-nowrap font-semibold rounded text-black text-sm p-1'>Add to Watchlist</button>
                         </form>
                         <div>
